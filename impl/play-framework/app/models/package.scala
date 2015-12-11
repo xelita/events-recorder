@@ -1,12 +1,28 @@
-import play.api.libs.json.Json
+import play.api.libs.json.{Format, Json}
+import play.modules.reactivemongo.json.BSONFormats.BSONObjectIDFormat
+import reactivemongo.bson._
 
+/**
+  * Models pacakges.
+  * @author xelita
+  */
 package object models {
 
-  case class ExceptionDTO(_id: String, code: String, message: String, details: String)
+  case class EventRecordDTO(_id: BSONObjectID, applicationName: Option[String], event: Option[EventDTO])
 
-  object ExceptionDTO {
+  object EventRecordDTO {
 
-    implicit val exceptionReads = Json.reads[ExceptionDTO]
-    implicit val exceptionWrites = Json.writes[ExceptionDTO]
+    implicit val eventRecordFormat: Format[EventRecordDTO] = Json.format[EventRecordDTO]
   }
+
+  case class EventDTO(eventType: Option[String], eventData: Option[String])
+
+  object EventDTO {
+
+    implicit val eventFormat: Format[EventDTO] = Json.format[EventDTO]
+
+    // Needed to avoid intellij to remove the import play.modules.reactivemongo.json.BSONFormats.BSONObjectIDFormat
+    val forcedImport = BSONObjectIDFormat
+  }
+
 }
