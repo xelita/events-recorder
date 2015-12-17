@@ -37,10 +37,10 @@ public class RecorderService {
 
     public Exception check() {
         this.mailSender.send(mimeMessage -> {
-            mimeMessage.setFrom("exception-recorder@xelita.com");
+            mimeMessage.setFrom("events-recorder@xelita.com");
             mimeMessage.setSubject("test email");
             mimeMessage.setText("this is a test email sent during API checking process.");
-            mimeMessage.setRecipients(Message.RecipientType.TO, "exception-recorder@xelita.com");
+            mimeMessage.setRecipients(Message.RecipientType.TO, "events-recorder@xelita.com");
         });
         log.debug("Test email has been sent.");
 
