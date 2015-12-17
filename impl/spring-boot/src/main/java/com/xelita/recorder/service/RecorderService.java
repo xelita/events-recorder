@@ -26,8 +26,8 @@ public class RecorderService {
     @Autowired
     private MongoDbFactory mongoDbFactory;
 
-    @Value("${mongo.collection.exceptions}")
-    private String exceptionsCollection;
+    @Value("${mongo.collection.events}")
+    private String eventsCollection;
 
     // *************************************************************************
     //
@@ -44,7 +44,7 @@ public class RecorderService {
         });
         log.debug("Test email has been sent.");
 
-        return this.getExceptionsCollection().findOne().as(Exception.class);
+        return this.getEventsCollection().findOne().as(Exception.class);
     }
 
     // *************************************************************************
@@ -58,8 +58,8 @@ public class RecorderService {
      *
      * @return MongoCollection
      */
-    protected MongoCollection getExceptionsCollection() {
-        return this.getCollection(this.exceptionsCollection);
+    protected MongoCollection getEventsCollection() {
+        return this.getCollection(this.eventsCollection);
     }
 
     /**
@@ -69,7 +69,7 @@ public class RecorderService {
      * @return MongoCollection
      */
     protected MongoCollection getCollection(String name) {
-        Jongo jongo = new Jongo(mongoDbFactory.getDb());
+        Jongo jongo = new Jongo(this.mongoDbFactory.getDb());
         return jongo.getCollection(name);
     }
 }
