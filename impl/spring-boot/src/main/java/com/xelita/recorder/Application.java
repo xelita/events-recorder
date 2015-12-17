@@ -74,7 +74,7 @@ public class Application implements CommandLineRunner {
      */
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Exception Recorder API")
+                .title("Events Recorder API")
                 .version(this.buildVersion)
                 .build();
     }

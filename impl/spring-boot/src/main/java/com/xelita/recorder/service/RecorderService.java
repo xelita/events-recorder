@@ -1,6 +1,9 @@
 package com.xelita.recorder.service;
 
+import com.xelita.recorder.dto.EventDTO;
+import com.xelita.recorder.dto.EventRecordDTO;
 import lombok.extern.slf4j.Slf4j;
+import org.bson.types.ObjectId;
 import org.jongo.Jongo;
 import org.jongo.MongoCollection;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import javax.mail.Message;
+
+import static org.jongo.Oid.withOid;
 
 /**
  * RecorderService.
@@ -35,7 +40,12 @@ public class RecorderService {
     //
     // *************************************************************************
 
-    public Exception check() {
+    /**
+     * Check the state of the application.
+     *
+     * @return an EventDTO instance
+     */
+    public EventRecordDTO check() {
         this.mailSender.send(mimeMessage -> {
             mimeMessage.setFrom("events-recorder@xelita.com");
             mimeMessage.setSubject("test email");
@@ -44,7 +54,31 @@ public class RecorderService {
         });
         log.debug("Test email has been sent.");
 
-        return this.getEventsCollection().findOne().as(Exception.class);
+        return this.getEventsCollection().findOne().as(EventRecordDTO.class);
+    }
+
+    /**
+     * Get an existing event by its identifier.
+     *
+     * @param id the id of the event to retrieve
+     * @return the retrieved event or null if the event could not be retrieved
+     */
+    public EventRecordDTO getEventById(String id) {
+        return this.getEventsCollection().findOne(withOid(id)).as(EventRecordDTO.class);
+    }
+
+    /**
+     * Save a new event in the system.
+     *
+     * @param event the event to save
+     * @return the saved event
+     */
+    public EventRecordDTO saveEvent(EventRecordDTO event) {
+        event.setUid(null);
+        ObjectId uid = (ObjectId) this.getEventsCollection().save(event).getUpsertedId();
+        log.info("events uid is [{}].", uid);
+
+        return this.getEventsCollection().findOne(uid).as(EventRecordDTO.class);
     }
 
     // *************************************************************************
