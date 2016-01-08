@@ -1,6 +1,5 @@
 package com.xelita.recorder.service;
 
-import com.xelita.recorder.dto.EventDTO;
 import com.xelita.recorder.dto.EventRecordDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.types.ObjectId;

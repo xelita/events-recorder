@@ -1,17 +1,13 @@
 package com.xelita.recorder.controller;
 
-import com.xelita.recorder.dto.EventDTO;
+import com.xelita.commons.dto.ResponseDTO;
 import com.xelita.recorder.dto.EventRecordDTO;
-import com.xelita.recorder.dto.ResponseDTO;
 import com.xelita.recorder.service.RecorderService;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
-
-import javax.xml.ws.Response;
 
 /**
  * RecorderController.
