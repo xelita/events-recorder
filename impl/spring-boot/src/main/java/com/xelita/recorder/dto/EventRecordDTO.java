@@ -1,10 +1,7 @@
 package com.xelita.recorder.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.jongo.marshall.jackson.oid.MongoId;
 import org.jongo.marshall.jackson.oid.MongoObjectId;
 
@@ -15,6 +12,7 @@ import java.io.Serializable;
  *
  * @author xelita
  */
+@Builder
 @NoArgsConstructor
 @Getter
 @Setter

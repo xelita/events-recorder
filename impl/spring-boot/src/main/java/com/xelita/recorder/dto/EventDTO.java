@@ -1,10 +1,8 @@
 package com.xelita.recorder.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import com.xelita.commons.dto.ContextDTO;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.Map;
@@ -14,6 +12,7 @@ import java.util.Map;
  *
  * @author xelita
  */
+@Builder
 @NoArgsConstructor
 @Getter
 @Setter
